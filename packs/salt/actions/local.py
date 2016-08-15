@@ -27,6 +27,20 @@ class SaltLocal(SaltAction):
             st2 run salt.local module=test.ping matches='web*'
             st2 run salt.local module=test.ping expr_form=grain target='os:Ubuntu'
         '''
+        if module not in ['test.ping','test.version']:
+            self.generate_package('local',
+                                  cmd=module,
+                                  target=target,
+                                  expr_form=expr_form,
+                                  args=args,
+                                  data=kwargs)
+        else:
+            self.generate_package('local',
+                                  cmd=module,
+                                  target=target,
+                                  expr_form=expr_form,
+                                  args=None,
+                                  data=kwargs)
         self.generate_package('local',
                               cmd=module,
                               target=target,
